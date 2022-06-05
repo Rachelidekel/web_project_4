@@ -8,17 +8,20 @@
     <meta name="author" content="Rcheli Dekel" />
     <meta name="description" content="Around The U.S." />
     <title>Around The U.S.</title>
-    <link rel="stylesheet" href="./src/pages/index.css" />
   </head>
   <body class="body">
     <div class="page">
       <header class="header">
-        <img src="./images/Vector.svg" alt="Around The U.S." class="logo" />
+        <img
+          src="<%=require('./images/Vector.svg')%>"
+          alt="Around The U.S."
+          class="logo"
+        />
       </header>
       <main class="content">
         <section class="profile">
           <img
-            src="./images/Avatar.png"
+            src="<%=require('./images/Avatar.png')%>"
             alt="a round picture of an old man with a red hat"
             class="profile__image"
           />
@@ -27,7 +30,7 @@
               <h1 class="profile__title-name">Jacques Cousteau</h1>
               <button type="button" class="profile__open-button">
                 <img
-                  src="./images/Vector_pen.svg"
+                  src="<%=require('./images/Vector_pen.svg')%>"
                   alt="icon of a pen"
                   class="profile__open-icon"
                 />
@@ -37,7 +40,7 @@
           </div>
           <button type="button" class="profile__add-button">
             <img
-              src="./images/Vector_plus.svg"
+              src="<%=require('./images/Vector_plus.svg')%>"
               alt="icon ao a plus"
               class="profile__add-icon"
             />
@@ -56,7 +59,7 @@
         <div class="popup__container">
           <button type="button" class="popup__close-button">
             <img
-              src="./images/Close_Icon.svg"
+              src="<%=require('./images/Close_Icon.svg')%>"
               alt="icon of x"
               class="popup__close-icon"
             />
@@ -98,7 +101,7 @@
         <div class="popup__container">
           <button type="button" class="popup__close-button">
             <img
-              src="./images/Close_Icon.svg"
+              src="<%=require('./images/Close_Icon.svg')%>"
               alt="icon of x"
               class="popup__close-icon"
             />
@@ -141,7 +144,7 @@
             class="popup__close-button popup__close-button_image"
           >
             <img
-              src="./images/Close_Icon.svg"
+              src="<%=require('./images/Close_Icon.svg')%>"
               alt="icon of x"
               class="popup__close-icon popup__close-icon_image"
             />
@@ -160,7 +163,7 @@
           <img src="#" alt="#" class="element__item" />
           <button type="button" class="element__delete-button">
             <img
-              src="./images/Delete_Icon.svg"
+              src="<%=require('./images/Delete_Icon.svg')%>"
               alt=" a drawing of a trash can"
               class="element__delete-icon"
             />
@@ -170,7 +173,7 @@
           <h2 class="element__title-name"></h2>
           <button type="button" class="element__title-button">
             <img
-              src="./images/Vector_heart.svg"
+              src="<%=require('./images/Vector_heart.svg')%>"
               alt="a drawing of a heart"
               class="element__title-heart"
             />
@@ -178,6 +181,5 @@
         </div>
       </li>
     </template>
-    <script type="module" src="./src/index.js"></script>
   </body>
 </html>

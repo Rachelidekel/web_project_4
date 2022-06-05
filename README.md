@@ -15,7 +15,7 @@
 # Description
 
 This is the seventh project of the Web Development program at Practicum by Yandex. It was created using HTML, CSS and JS, based on the design in Figma. Aroun The U.S. present interactive page which let the users add their proflie and photos.
-The profile and new photos added via form which appears from opened popupbox. In addtion, when the user click on the photo in the site, popupbox of this photo appears on the screen that increases the photo.
+The profile and new photos added via form which appears from opened popupbox. In addtion, when the user click on the photo in the site, popupbox of this photo appears on the screen that increases the photo. This project is made with the help of webpack.
 
 ## Project features
 
