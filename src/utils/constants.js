@@ -24,3 +24,13 @@ export const editProfileButton = document.querySelector(
   ".profile__open-button"
 );
 export const addcardButton = document.querySelector(".profile__add-button");
+
+//settings
+export const settings = {
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__button",
+  inactiveButtonClass: "form__button_disabled",
+  inputErrorClass: "form__input_type_error",
+  errorClass: "popup__error_visible",
+};
+

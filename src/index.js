@@ -5,6 +5,7 @@ import { PopupWithForm } from "./components/PopupWithForm.js";
 import PopupWithImage from "./components/PopupWithImage.js";
 import { Section } from "./components/Section.js";
 import { UserInfo } from "./components/UserInfo.js";
+import initialCards from "./utils/initialCards";
 import {
   templateCardSelector,
   list,
@@ -14,42 +15,9 @@ import {
   profileJobInput,
   editProfileButton,
   addcardButton,
+  settings,
 } from "./utils/constants.js";
 
-const settings = {
-  inputSelector: ".form__input",
-  submitButtonSelector: ".form__button",
-  inactiveButtonClass: "form__button_disabled",
-  inputErrorClass: "form__input_type_error",
-  errorClass: "popup__error_visible",
-};
-
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://code.s3.yandex.net/web-code/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg",
-  },
-];
 
 initialCards.reverse();
 
@@ -109,16 +77,6 @@ const addCardFormValidator = new FormValidator(settings, addCardForm);
 
 editFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
-
-//
-//const profile = document.querySelector(".profile");
-//const profileName = profile.querySelector(".profile__title-name");
-//const profileJob = profile.querySelector(".profile__subtitle-job");
-
-//function fillProfileForm() {
-//profileName.textContent = profileNameInput.value;
-//profileJob.textContent = profileJobInput.value;
-//}
 
 function fillProfileFormPreviousInput() {
   const profileName = userInfo.getUserInfo();

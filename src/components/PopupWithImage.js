@@ -16,8 +16,5 @@ export default class PopupWithImage extends Popup {
     imageCardCaptionModal.textContent = this._name;
     imageCardModal.src = this._link;
     imageCardModal.alt = `Landscape image from a place named ${this._name}`;
-
-    //this._popup.classList.add("popup_opened");
-    //document.addEventListener("keydown", this._handleEscClose);
   };
 }
