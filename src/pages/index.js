@@ -25,7 +25,7 @@ const section = new Section(
     items: initialCards,
     renderer: renderCard,
   },
-  ".element__template"
+  ".elements__list"
 );
 section.renderItems();
 
@@ -36,25 +36,20 @@ function handleImagePreview(name, link) {
   previewImageModal.open(name, link);
 }
 
-function createCard({name, link}) {
-  const card = new Card({name, link}, templateCardSelector, handleImagePreview);
+function createCard(name, link) {
+  const card = new Card(
+    { name, link },
+    templateCardSelector,
+    handleImagePreview
+  );
   const cardElement = card.generateCard();
   return cardElement;
 }
 
-function renderCard({ name, link }) {
+function renderCard({name, link}) {
   const listItem = createCard(name, link);
   section.addItem(listItem);
 }
-
-//function renderCard({ name, link }) {
-//const listItem = new Card(
-//{ name, link },
-// templateCardSelector,
-//handleImagePreview
-//);
-//list.prepend(listItem.generateCard(card));
-//}
 
 const userInfo = new UserInfo({
   profileNameSelector: ".profile__title-name",
@@ -77,7 +72,6 @@ addCardModal.setEventListeners();
 
 function submitAddCardForm({ name, link }) {
   renderCard({ name, link });
-  section.addItem(listItem);
   addCardModal.close();
 }
 

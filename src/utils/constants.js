@@ -9,11 +9,6 @@ export const list = document.querySelector(".elements__list");
 export const editProfileForm = editProfileModal.querySelector(".popup__form");
 export const addCardForm = addNewCardModal.querySelector(".popup__form");
 
-//
-//export const imageModal = document.querySelector(".popup_type_image");
-//const imageCardModal = imageModal.querySelector(".popup__image");
-//const imageCardCaptionModal = imageModal.querySelector(".popup__caption");
-
 export const profileNameInput = document.querySelector(
   ".form__input_type_name"
 );
