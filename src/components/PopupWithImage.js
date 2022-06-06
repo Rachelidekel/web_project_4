@@ -3,6 +3,9 @@ import Popup from "./Popup.js";
 export default class PopupWithImage extends Popup {
   constructor(popupSelector) {
     super(popupSelector);
+
+    this._imageCardModal = this._popup.querySelector(".popup__image");
+    this._imageCardCaptionModal = this._popup.querySelector(".popup__caption");
   }
 
   open = (name, link) => {
@@ -10,11 +13,8 @@ export default class PopupWithImage extends Popup {
     this._name = name;
     this._link = link;
 
-    const imageCardModal = this._popup.querySelector(".popup__image");
-    const imageCardCaptionModal = this._popup.querySelector(".popup__caption");
-
-    imageCardCaptionModal.textContent = this._name;
-    imageCardModal.src = this._link;
-    imageCardModal.alt = `Landscape image from a place named ${this._name}`;
+    this._imageCardCaptionModal.textContent = this._name;
+    this._imageCardModal.src = this._link;
+    this._imageCardModal.alt = `Landscape image from a place named ${this._name}`;
   };
 }

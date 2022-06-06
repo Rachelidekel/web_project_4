@@ -1,11 +1,11 @@
-import "./pages/index.css";
-import { Card } from "./components/Card.js";
-import FormValidator from "./components/FormValidator.js";
-import { PopupWithForm } from "./components/PopupWithForm.js";
-import PopupWithImage from "./components/PopupWithImage.js";
-import { Section } from "./components/Section.js";
-import { UserInfo } from "./components/UserInfo.js";
-import initialCards from "./utils/initialCards";
+import "./index.css";
+import { Card } from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+import { PopupWithForm } from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import { Section } from "../components/Section.js";
+import { UserInfo } from "../components/UserInfo.js";
+import initialCards from "../utils/initialCards.js";
 import {
   templateCardSelector,
   list,
@@ -16,8 +16,7 @@ import {
   editProfileButton,
   addcardButton,
   settings,
-} from "./utils/constants.js";
-
+} from "../utils/constants.js";
 
 initialCards.reverse();
 
@@ -37,14 +36,25 @@ function handleImagePreview(name, link) {
   previewImageModal.open(name, link);
 }
 
-function renderCard({ name, link }, card) {
-  const listItem = new Card(
-    { name, link },
-    templateCardSelector,
-    handleImagePreview
-  );
-  list.prepend(listItem.generateCard(card));
+function createCard({name, link}) {
+  const card = new Card({name, link}, templateCardSelector, handleImagePreview);
+  const cardElement = card.generateCard();
+  return cardElement;
 }
+
+function renderCard({ name, link }) {
+  const listItem = createCard(name, link);
+  section.addItem(listItem);
+}
+
+//function renderCard({ name, link }) {
+//const listItem = new Card(
+//{ name, link },
+// templateCardSelector,
+//handleImagePreview
+//);
+//list.prepend(listItem.generateCard(card));
+//}
 
 const userInfo = new UserInfo({
   profileNameSelector: ".profile__title-name",
@@ -66,8 +76,8 @@ const addCardModal = new PopupWithForm(
 addCardModal.setEventListeners();
 
 function submitAddCardForm({ name, link }) {
-  const element = renderCard({ name, link });
-  section.addItem(element);
+  renderCard({ name, link });
+  section.addItem(listItem);
   addCardModal.close();
 }
 
@@ -79,10 +89,9 @@ editFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
 
 function fillProfileFormPreviousInput() {
-  const profileName = userInfo.getUserInfo();
-  const profileJob = userInfo.getUserInfo();
-  profileNameInput.value = profileName.name;
-  profileJobInput.value = profileJob.job;
+  const { name, job } = userInfo.getUserInfo();
+  profileNameInput.value = name;
+  profileJobInput.value = job;
 }
 
 editProfileButton.addEventListener("click", () => {
