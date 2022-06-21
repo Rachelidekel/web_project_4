@@ -31,6 +31,15 @@ const userInfo = new UserInfo({
   profileJobSelector: ".profile__subtitle-job",
 });
 
+const section = new Section(
+  {
+    items: api.getInitialCards(),
+    renderer: renderCard(data),
+  },
+  ".elements__list"
+);
+
+
 //api.getUserInfo().then((res) => {
   //userInfo.setUserInfo({
     //profileNameInput: res.name,
@@ -49,13 +58,7 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
   });
 })
 
-const section = new Section(
-  {
-    items: initialCards,
-    renderer: renderCard,
-  },
-  ".elements__list"
-);
+
 //section.renderItems();
 
 const previewImageModal = new PopupWithImage(".popup_type_image");
