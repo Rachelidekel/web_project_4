@@ -50,7 +50,7 @@ const section = new Section(
 const previewImageModal = new PopupWithImage(".popup_type_image");
 previewImageModal.setEventListeners();
 
-const confirmModal = new PopupWithSubmit(".popup_type_delete-card");
+const confirmModal = new PopupWithSubmit("popup_type_delete-card");
 confirmModal.setEventListeners();
 
 //function handleImagePreview(data) {
