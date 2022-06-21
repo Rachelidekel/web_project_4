@@ -7,7 +7,7 @@ import PopupWithSubmit from "../components/PopupWithSubmit.js";
 import { Section } from "../components/Section.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { api } from "../components/Api.js";
-import initialCards from "../utils/initialCards.js";
+//import initialCards from "../utils/initialCards.js";
 import {
   templateCardSelector,
   list,
@@ -31,15 +31,16 @@ const userInfo = new UserInfo({
   profileJobSelector: ".profile__subtitle-job",
 });
 
-const section = new Section(
-  {
-    items: api.getInitialCards(),
-    renderer: renderCard(data),
-  },
-  ".elements__list"
-);
 
-
+//api.getInitialCards().then(cards => {
+  //const section = new Section(
+    //{
+      //items: cards,
+      //renderer: (data) => renderCard(data),
+    //},
+    //".elements__list"
+  //);
+  //})
 //api.getUserInfo().then((res) => {
   //userInfo.setUserInfo({
     //profileNameInput: res.name,
@@ -50,6 +51,7 @@ let userId
 
 Promise.all([api.getInitialCards(), api.getUserInfo()])
 .then(([cardData, userData]) => {
+  const section = new Section({ items: cardData, renderer: (data) => renderCard(data) }, ".elements__list")
   userId = userData._id
   section.renderItems(cardData);
   userInfo.setUserInfo({
