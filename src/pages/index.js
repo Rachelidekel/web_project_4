@@ -46,7 +46,7 @@ function createCard(name, link) {
   return cardElement;
 }
 
-function renderCard({name, link}) {
+function renderCard({ name, link }) {
   const listItem = createCard(name, link);
   section.addItem(listItem);
 }
