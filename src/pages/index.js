@@ -22,21 +22,32 @@ import {
 
 //initialCards.reverse();
 
-api.getInitialCards().then((res) => {
-  section.renderItems(res);
-});
+//api.getInitialCards().then((res) => {
+  //section.renderItems(res);
+//});
 
 const userInfo = new UserInfo({
   profileNameSelector: ".profile__title-name",
   profileJobSelector: ".profile__subtitle-job",
 });
 
-api.getUserInfo().then((res) => {
+//api.getUserInfo().then((res) => {
+  //userInfo.setUserInfo({
+    //profileNameInput: res.name,
+    //profileJobInput: res.about,
+  //});
+//});
+let userId
+
+Promise.all([api.getInitialCards(), api.getUserInfo()])
+.then(([cardData, userData]) => {
+  userId = userData._id
+  section.renderItems(cardData);
   userInfo.setUserInfo({
-    profileNameInput: res.name,
-    profileJobInput: res.about,
+    profileNameInput: userData.name,
+    profileJobInput: userData.about,
   });
-});
+})
 
 const section = new Section(
   {
@@ -50,7 +61,7 @@ const section = new Section(
 const previewImageModal = new PopupWithImage(".popup_type_image");
 previewImageModal.setEventListeners();
 
-const confirmModal = new PopupWithSubmit("popup_type_delete-card");
+const confirmModal = new PopupWithSubmit(".popup_type_delete-card");
 confirmModal.setEventListeners();
 
 //function handleImagePreview(data) {

@@ -159,7 +159,13 @@
     </div>
     <div class="popup popup_type_delete-card">
       <div class="popup__container">
-        <button type="button" class="popup__close-button"></button>
+        <button type="button" class="popup__close-button">
+          <img
+            src="<%=require('./images/Close_Icon.svg')%>"
+            alt="icon of x"
+            class="popup__close-icon"
+          />
+        </button>
         <h2 class="popup__title">Are you sure?</h2>
         <form name="card-form" class="form popup__form" novalidate>
           <button type="submit" class="form__button">Yes</button>
