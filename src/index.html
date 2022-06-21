@@ -157,6 +157,16 @@
         </div>
       </div>
     </div>
+    <div class="popup popup_type_delete-card">
+      <div class="popup__container">
+        <button type="button" class="popup__close-button"></button>
+        <h2 class="popup__title">Delete card</h2>
+        <form name="card-form" class="form popup__form" novalidate>
+          <button type="submit" class="form__button">Delete!!</button>
+        </form>
+      </div>
+    </div>
+
     <template class="element__template">
       <li class="element">
         <div class="element__wrapper">
@@ -178,6 +188,7 @@
               class="element__title-heart"
             />
           </button>
+          <span class="element__likes-count"></span>
         </div>
       </li>
     </template>

@@ -3,8 +3,10 @@ import { Card } from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithSubmit from "../components/PopupWithSubmit.js";
 import { Section } from "../components/Section.js";
 import { UserInfo } from "../components/UserInfo.js";
+import { api } from "../components/Api.js";
 import initialCards from "../utils/initialCards.js";
 import {
   templateCardSelector,
@@ -18,7 +20,23 @@ import {
   settings,
 } from "../utils/constants.js";
 
-initialCards.reverse();
+//initialCards.reverse();
+
+api.getInitialCards().then((res) => {
+  section.renderItems(res);
+});
+
+const userInfo = new UserInfo({
+  profileNameSelector: ".profile__title-name",
+  profileJobSelector: ".profile__subtitle-job",
+});
+
+api.getUserInfo().then((res) => {
+  userInfo.setUserInfo({
+    profileNameInput: res.name,
+    profileJobInput: res.about,
+  });
+});
 
 const section = new Section(
   {
@@ -27,34 +45,66 @@ const section = new Section(
   },
   ".elements__list"
 );
-section.renderItems();
+//section.renderItems();
 
 const previewImageModal = new PopupWithImage(".popup_type_image");
 previewImageModal.setEventListeners();
 
-function handleImagePreview(name, link) {
-  previewImageModal.open(name, link);
-}
+const confirmModal = new PopupWithSubmit(".popup_type_delete-card");
+confirmModal.setEventListeners();
 
-function createCard(name, link) {
+//function handleImagePreview(data) {
+//previewImageModal.open(data);
+//}
+
+//function handleDeleteCard(id) {
+//confirmModal.open()
+//}
+
+//function handleLikeCard(id) {
+
+//}
+
+function createCard(data) {
   const card = new Card(
-    { name, link },
+    {
+      data,
+      handleCardClick: () => {
+        previewImageModal.open(data);
+      },
+      handleLikeIcon: (id) => {
+        const isAlreadyLiked = card.isLiked();
+        if (isAlreadyLiked) {
+          api.dislikedCard(id).then((res) => {
+            card.likeCard(res.likes);
+          });
+        }
+      },
+      handleDeleteIcon: (id) => {
+        confirmModal.open();
+
+        confirmModal.setAction(() => {
+          api.deleteCard(id).then((res) => {
+            card.removeCard();
+            confirmModal.close();
+          });
+        });
+      },
+    },
     templateCardSelector,
-    handleImagePreview
+    userId
   );
   const cardElement = card.generateCard();
   return cardElement;
 }
 
-function renderCard({ name, link }) {
-  const listItem = createCard(name, link);
+function renderCard(data) {
+  //const listItem = createCard(data);
+  const listItem = api.createCard(data).then((res) => {
+    createCard(res);
+  });
   section.addItem(listItem);
 }
-
-const userInfo = new UserInfo({
-  profileNameSelector: ".profile__title-name",
-  profileJobSelector: ".profile__subtitle-job",
-});
 
 const editModal = new PopupWithForm(".popup_type_edit", sumbitEditProfileForm);
 editModal.setEventListeners();
@@ -70,8 +120,8 @@ const addCardModal = new PopupWithForm(
 );
 addCardModal.setEventListeners();
 
-function submitAddCardForm({ name, link }) {
-  renderCard({ name, link });
+function submitAddCardForm(data) {
+  renderCard(data);
   addCardModal.close();
 }
 
