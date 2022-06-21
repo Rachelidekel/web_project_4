@@ -22,44 +22,47 @@ import {
 
 //initialCards.reverse();
 
-//api.getInitialCards().then((res) => {
-  //section.renderItems(res);
-//});
+let userId;
+let section;
 
 const userInfo = new UserInfo({
   profileNameSelector: ".profile__title-name",
   profileJobSelector: ".profile__subtitle-job",
 });
 
-
 //api.getInitialCards().then(cards => {
-  //const section = new Section(
-    //{
-      //items: cards,
-      //renderer: (data) => renderCard(data),
-    //},
-    //".elements__list"
-  //);
-  //})
+//const section = new Section(
+//{
+//items: cards,
+//renderer: (data) => renderCard(data),
+//},
+//".elements__list"
+//);
+//})
 //api.getUserInfo().then((res) => {
-  //userInfo.setUserInfo({
-    //profileNameInput: res.name,
-    //profileJobInput: res.about,
-  //});
+//userInfo.setUserInfo({
+//profileNameInput: res.name,
+//profileJobInput: res.about,
 //});
-let userId
+//});
 
-Promise.all([api.getInitialCards(), api.getUserInfo()])
-.then(([cardData, userData]) => {
-  const section = new Section({ items: cardData, renderer: (data) => renderCard(data) }, ".elements__list")
-  userId = userData._id
-  section.renderItems(cardData);
-  userInfo.setUserInfo({
-    profileNameInput: userData.name,
-    profileJobInput: userData.about,
-  });
-})
-
+Promise.all([api.getInitialCards(), api.getUserInfo()]).then(
+  ([cardData, userData]) => {
+    section = new Section(
+      {
+        items: cardData,
+        renderer: (data) => section.addItem(createCard(data)),
+      },
+      ".elements__list"
+    );
+    userId = userData._id;
+    section.renderItems();
+    userInfo.setUserInfo({
+      profileNameInput: userData.name,
+      profileJobInput: userData.about,
+    });
+  }
+);
 
 //section.renderItems();
 
@@ -68,18 +71,6 @@ previewImageModal.setEventListeners();
 
 const confirmModal = new PopupWithSubmit(".popup_type_delete-card");
 confirmModal.setEventListeners();
-
-//function handleImagePreview(data) {
-//previewImageModal.open(data);
-//}
-
-//function handleDeleteCard(id) {
-//confirmModal.open()
-//}
-
-//function handleLikeCard(id) {
-
-//}
 
 function createCard(data) {
   const card = new Card(
@@ -114,13 +105,13 @@ function createCard(data) {
   return cardElement;
 }
 
-function renderCard(data) {
-  //const listItem = createCard(data);
-  const listItem = api.createCard(data).then((res) => {
-    createCard(res);
-  });
-  section.addItem(listItem);
-}
+//function renderCard(data) {
+//const listItem = createCard(data);
+//const listItem = api.createCard(data).then((res) => {
+//createCard(res);
+//});
+//section.addItem(listItem);
+//}
 
 const editModal = new PopupWithForm(".popup_type_edit", sumbitEditProfileForm);
 editModal.setEventListeners();

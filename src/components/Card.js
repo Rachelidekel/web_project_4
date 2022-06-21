@@ -1,15 +1,12 @@
 export class Card {
   constructor(
-    { data, 
-    handleCardClick,
-    handleLikeIcon, handleDeleteIcon
-  },
+    { data, handleCardClick, handleLikeIcon, handleDeleteIcon },
     templateCardSelector,
     userId
   ) {
     this._name = data.name;
     this._link = data.link;
-    this._likes = likes;
+    this._likes = data.likes;
     this._templateCardSelector = templateCardSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteIcon = handleDeleteIcon;
@@ -42,13 +39,13 @@ export class Card {
     this._listItem.querySelector(".element__likes-count").textContent =
       this._likes.length;
 
-    this._likeButton = this._listItem
+    this._listItem
       .querySelector(".element__title-button")
       .classList.toggle("element__title-button_active");
   }
 
   _addEventListeners() {
-    //this._likeButton = this._listItem.querySelector(".element__title-button");
+    this._likeButton = this._listItem.querySelector(".element__title-button");
     this._deleteButton = this._listItem.querySelector(
       ".element__delete-button"
     );
@@ -81,7 +78,7 @@ export class Card {
     this._listItem.querySelector(".element__likes-count").textContent =
       this._likes.length;
 
-    // const isLiked = this._likes.some((preson) => preson._id === this._userId);
+    const isLiked = this._likes.some((preson) => preson._id === this._userId);
 
     if (isLiked) {
       this.likeCard(this._likes);
@@ -90,4 +87,3 @@ export class Card {
     return this._listItem;
   };
 }
-
