@@ -20,11 +20,17 @@
       </header>
       <main class="content">
         <section class="profile">
-          <img
-            src="<%=require('./images/Avatar.png')%>"
-            alt="a round picture of an old man with a red hat"
-            class="profile__image"
-          />
+          <div class="profile__avatar">
+            <div class="profile__avatar-image">
+              <img
+                src="<%=require('./images/Avatar.png')%>"
+                alt="user profile avatar"
+                class="profile__image"
+              />
+            </div>
+            <div class="profile__avatar-overlay">
+            </div>
+          </div>
           <div class="profile__info">
             <div class="profile__title">
               <h1 class="profile__title-name">Jacques Cousteau</h1>
@@ -41,7 +47,7 @@
           <button type="button" class="profile__add-button">
             <img
               src="<%=require('./images/Vector_plus.svg')%>"
-              alt="icon ao a plus"
+              alt="icon of a plus"
               class="profile__add-icon"
             />
           </button>
@@ -55,6 +61,35 @@
         <p class="footer__copyrights">&copy;2021 Around The U.S.</p>
       </footer>
 
+      <div class="popup popup_type_avatar">
+        <div class="popup__container popup__container-type_avatar">
+          <button type="button" class="popup__close-button">
+            <img
+              src="<%=require('./images/Close_Icon.svg')%>"
+              alt="icon of x"
+              class="popup__close-icon"
+            />
+          </button>
+
+          <h2 class="popup__title">Change profile picture</h2>
+
+          <form name="avatar-form" class="form popup__form popup__form_type_avatar" novalidate>
+            <div class="form__control form__control-avatar">
+              <input
+                type="url"
+                class="form__input form__input_type_avatar-link"
+                id="avatar-link"
+                name="link"
+                placeholder="Image link"
+                required
+              />
+              <span id="avatar-link-error" class="popup__error"></span>
+            </div>
+            <button type="submit" class="form__button">Save</button>
+          </form>
+        </div>
+      </div>
+
       <div class="popup popup_type_edit">
         <div class="popup__container">
           <button type="button" class="popup__close-button">
@@ -64,9 +99,7 @@
               class="popup__close-icon"
             />
           </button>
-
           <h2 class="popup__title">Edit profile</h2>
-
           <form name="edit-form" class="form popup__form" novalidate>
             <div class="form__control">
               <input
@@ -158,7 +191,7 @@
       </div>
     </div>
     <div class="popup popup_type_delete-card">
-      <div class="popup__container">
+      <div class="popup__container popup__container_type_delete">
         <button type="button" class="popup__close-button">
           <img
             src="<%=require('./images/Close_Icon.svg')%>"
@@ -166,9 +199,11 @@
             class="popup__close-icon"
           />
         </button>
-        <h2 class="popup__title">Are you sure?</h2>
+        <h2 class="popup__title popup__title_type_delete">Are you sure?</h2>
         <form name="card-form" class="form popup__form" novalidate>
-          <button type="submit" class="form__button">Yes</button>
+          <button type="submit" class="form__button form__button_type_yes">
+            Yes
+          </button>
         </form>
       </div>
     </div>
@@ -187,14 +222,16 @@
         </div>
         <div class="element__title">
           <h2 class="element__title-name"></h2>
-          <button type="button" class="element__title-button">
-            <img
-              src="<%=require('./images/Vector_heart.svg')%>"
-              alt="a drawing of a heart"
-              class="element__title-heart"
-            />
-          </button>
-          <span class="element__likes-count"></span>
+          <div class="element__likes">
+            <button type="button" class="element__title-button">
+              <img
+                src="<%=require('./images/Vector_heart.svg')%>"
+                alt="a drawing of a heart"
+                class="element__title-heart"
+              />
+            </button>
+            <span class="element__likes-count"></span>
+          </div>
         </div>
       </li>
     </template>

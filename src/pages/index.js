@@ -7,20 +7,26 @@ import PopupWithSubmit from "../components/PopupWithSubmit.js";
 import { Section } from "../components/Section.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { api } from "../components/Api.js";
-//import initialCards from "../utils/initialCards.js";
+import { improveUX } from "../utils/utils.js";
 import {
   templateCardSelector,
   list,
   editProfileForm,
   addCardForm,
+  addAvatarForm,
   profileNameInput,
   profileJobInput,
   editProfileButton,
-  addcardButton,
+  addCardButton,
+  profileAvatar,
+  profileAvatarContainer,
+  avatarImageInput,
   settings,
+  addAvatarButton,
+  editProfileSubmitButton,
+  addCardSubmitButton,
+  avatarSubmitButton,
 } from "../utils/constants.js";
-
-//initialCards.reverse();
 
 let userId;
 let section;
@@ -28,23 +34,12 @@ let section;
 const userInfo = new UserInfo({
   profileNameSelector: ".profile__title-name",
   profileJobSelector: ".profile__subtitle-job",
+  avatarImageInput: ".profile__image",
 });
 
-//api.getInitialCards().then(cards => {
-//const section = new Section(
-//{
-//items: cards,
-//renderer: (data) => renderCard(data),
-//},
-//".elements__list"
-//);
-//})
-//api.getUserInfo().then((res) => {
-//userInfo.setUserInfo({
-//profileNameInput: res.name,
-//profileJobInput: res.about,
-//});
-//});
+//
+profileAvatar.alt = "user profile avatar";
+//profileAvatar.classList.add("profile__image");
 
 Promise.all([api.getInitialCards(), api.getUserInfo()]).then(
   ([cardData, userData]) => {
@@ -61,10 +56,12 @@ Promise.all([api.getInitialCards(), api.getUserInfo()]).then(
       profileNameInput: userData.name,
       profileJobInput: userData.about,
     });
+    profileAvatarContainer.prepend(profileAvatar);
+    console.log("avatar")
+    userInfo.setUserAvatar({profileAvatar: userData.avatar});
+    console.log("Hello")
   }
 );
-
-//section.renderItems();
 
 const previewImageModal = new PopupWithImage(".popup_type_image");
 previewImageModal.setEventListeners();
@@ -81,8 +78,13 @@ function createCard(data) {
       },
       handleLikeIcon: (id) => {
         const isAlreadyLiked = card.isLiked();
+
         if (isAlreadyLiked) {
-          api.dislikedCard(id).then((res) => {
+          api.dislikeCard(id).then((res) => {
+            card.likeCard(res.likes);
+          });
+        } else {
+          api.likeCard(id).then((res) => {
             card.likeCard(res.likes);
           });
         }
@@ -105,20 +107,19 @@ function createCard(data) {
   return cardElement;
 }
 
-//function renderCard(data) {
-//const listItem = createCard(data);
-//const listItem = api.createCard(data).then((res) => {
-//createCard(res);
-//});
-//section.addItem(listItem);
-//}
-
 const editModal = new PopupWithForm(".popup_type_edit", sumbitEditProfileForm);
 editModal.setEventListeners();
 
-function sumbitEditProfileForm({ name, job }) {
-  userInfo.setUserInfo({ profileNameInput: name, profileJobInput: job });
-  editModal.close();
+function sumbitEditProfileForm(data) {
+  improveUX(editProfileSubmitButton, "Saving...");
+  api.setUserInfo(data.name, data.job).then((data) => {
+    improveUX(editProfileSubmitButton, "Save");
+    userInfo.setUserInfo({
+      profileNameInput: data.name,
+      profileJobInput: data.about,
+    });
+    editModal.close();
+  });
 }
 
 const addCardModal = new PopupWithForm(
@@ -128,16 +129,39 @@ const addCardModal = new PopupWithForm(
 addCardModal.setEventListeners();
 
 function submitAddCardForm(data) {
-  renderCard(data);
-  addCardModal.close();
+  improveUX(addCardSubmitButton, "Creating...");
+  api.createCard(data).then((res) => {
+    createCard(res);
+    improveUX(addCardSubmitButton, "Create");
+    section.addItem(createCard(res));
+    addCardModal.close();
+  });
+}
+
+const addAvatarModal = new PopupWithForm(
+  ".popup_type_avatar",
+  submitAddAvatarForm
+);
+addAvatarModal.setEventListeners();
+
+function submitAddAvatarForm(avatar) {
+  improveUX(avatarSubmitButton, "Saving...");
+  api.setUserAvatar(avatar.link).then((avatar) => {
+    userInfo.setUserAvatar({profileAvatar: avatar.link});
+    improveUX(avatarSubmitButton, "Save");
+    //setUserAvatar(res);
+    addAvatarModal.close();
+  });
 }
 
 //
 const editFormValidator = new FormValidator(settings, editProfileForm);
 const addCardFormValidator = new FormValidator(settings, addCardForm);
+const addAvatarFormValidator = new FormValidator(settings, addAvatarForm);
 
 editFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
+addAvatarFormValidator.enableValidation();
 
 function fillProfileFormPreviousInput() {
   const { name, job } = userInfo.getUserInfo();
@@ -145,13 +169,24 @@ function fillProfileFormPreviousInput() {
   profileJobInput.value = job;
 }
 
+//function fillAvatarFormPreviousImage() {
+//const link = userInfo.getUserInfo();
+//profileImage.value = link;
+//}
+
 editProfileButton.addEventListener("click", () => {
   fillProfileFormPreviousInput();
   editFormValidator.resetValidation();
   editModal.open();
 });
 
-addcardButton.addEventListener("click", () => {
+addCardButton.addEventListener("click", () => {
   addCardFormValidator.resetValidation();
   addCardModal.open();
+});
+
+addAvatarButton.addEventListener("click", () => {
+  //fillAvatarFormPreviousImage();
+  addAvatarFormValidator.resetValidation();
+  addAvatarModal.open();
 });

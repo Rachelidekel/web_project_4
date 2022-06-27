@@ -29,10 +29,10 @@ export class Card {
     return this._likes.some((preson) => preson._id === this._userId);
   }
 
-  //_handleLikeIcon = (evt) =>
-  //evt.target.classList.toggle("element__title-button_active");
-
-  removeCard = () => this._listItem.remove();
+  removeCard() {
+    this._listItem.remove();
+    this._listItem = null;
+  }
 
   likeCard(newLikes) {
     this._likes = newLikes;
@@ -50,7 +50,7 @@ export class Card {
       ".element__delete-button"
     );
 
-    this._likeButton.addEventListener("click", (evt) => {
+    this._likeButton.addEventListener("click", () => {
       this._handleLikeIcon(this._id);
     });
     this._deleteButton.addEventListener("click", () => {
@@ -78,9 +78,7 @@ export class Card {
     this._listItem.querySelector(".element__likes-count").textContent =
       this._likes.length;
 
-    const isLiked = this._likes.some((preson) => preson._id === this._userId);
-
-    if (isLiked) {
+    if (this.isLiked()) {
       this.likeCard(this._likes);
     }
 

@@ -81,6 +81,18 @@
   width: auto;
 }
 
+.popup__container-type_avatar {
+  max-height: 204px;
+}
+
+.popup__container_type_delete {
+ max-height: 109px;
+}
+
+.popup__title_type_delete {
+  margin-bottom: 38px;
+}
+
 .popup__image {
   max-width: 100%;
   max-height: 75vh;
@@ -114,6 +126,9 @@
   visibility: visible;
   display: block;
 }
+
+ 
+
 
 @media screen and (max-width: 700px) {
   .popup__close-icon_image {

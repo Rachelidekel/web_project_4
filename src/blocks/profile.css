@@ -6,10 +6,43 @@
   align-items: center;
 }
 
+.profile__avatar {
+  position: relative;
+}
+
 .profile__image {
   height: 120px;
   width: 120px;
   border-radius: 50%;
+  position: relative;
+}
+
+.profile__avatar-overlay {
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  position: relative;
+}
+
+.profile__avatar .profile__avatar-overlay {
+  cursor: pointer;
+  position: absolute;
+  display: none;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.profile__avatar:hover .profile__avatar-overlay {
+  display: block;
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.8);
+  background-image: url("../images/Vector_pen_big.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 26px;
 }
 
 .profile__info {
