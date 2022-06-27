@@ -7,7 +7,6 @@ import PopupWithSubmit from "../components/PopupWithSubmit.js";
 import { Section } from "../components/Section.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { api } from "../components/Api.js";
-//import { improveUX } from "../utils/utils.js";
 import {
   templateCardSelector,
   editProfileForm,
@@ -21,9 +20,6 @@ import {
   profileAvatarContainer,
   settings,
   addAvatarButton,
-  editProfileSubmitButton,
-  addCardSubmitButton,
-  avatarSubmitButton,
 } from "../utils/constants.js";
 
 let userId;
@@ -32,7 +28,7 @@ let section;
 const userInfo = new UserInfo({
   profileNameSelector: ".profile__title-name",
   profileJobSelector: ".profile__subtitle-job",
-  avatarImageInput: ".profile__image",
+  avatarSelector: ".profile__image",
 });
 
 //
@@ -108,14 +104,13 @@ const editModal = new PopupWithForm(".popup_type_edit", sumbitEditProfileForm);
 editModal.setEventListeners();
 
 function sumbitEditProfileForm(data) {
-  //changeButtonText(editProfileSubmitButton, "Saving...");
+  editModal.renderLoading(true);
   api.setUserInfo(data.name, data.job).then((data) => {
-    //changeButtonText(editProfileSubmitButton, "Save");
     userInfo.setUserInfo({
       profileNameInput: data.name,
       profileJobInput: data.about,
     }); editModal.close();
-  }).catch(console.log).finally(() => renderLoading());  
+  }).catch(console.log).finally(() => editModal.renderLoading(false));  
 }
 
 const addCardModal = new PopupWithForm(
@@ -125,13 +120,12 @@ const addCardModal = new PopupWithForm(
 addCardModal.setEventListeners();
 
 function submitAddCardForm(data) {
-  //changeButtonText(addCardSubmitButton, "Creating...");
+  addCardModal.renderLoading(true);
   api.createCard(data).then((res) => {
     createCard(res);
-    //changeButtonText(addCardSubmitButton, "Create");
     section.addItem(createCard(res))
     addCardModal.close();
-  }).catch(console.log).finally(() => renderLoading()) 
+  }).catch(console.log).finally(() => addCardModal.renderLoading(false)) 
 }
 
 const addAvatarModal = new PopupWithForm(
@@ -141,13 +135,14 @@ const addAvatarModal = new PopupWithForm(
 addAvatarModal.setEventListeners();
 
 function submitAddAvatarForm(data) {
-  //changeButtonText(avatarSubmitButton, "Saving...");
-  api.setUserAvatar(data.link).then((data) => {
-    userInfo.setUserAvatar({ avatarImageInput: data.avatar });
-    //changeButtonText(avatarSubmitButton, "Save");
-    addAvatarModal.close();
-  }).catch(console.log).finally(() => renderLoading()); 
-  
+  addAvatarModal.renderLoading(true);
+ api.setUserAvatar(data.link)
+   .then((data) => {
+     userInfo.setUserAvatar({ avatarImageInput: data.avatar });
+     addAvatarModal.close();
+   })
+   .catch(console.log)
+   .finally(() => addAvatarModal.renderLoading(false)); 
 }
 
 //

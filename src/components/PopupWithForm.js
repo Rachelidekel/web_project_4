@@ -19,20 +19,19 @@ export class PopupWithForm extends Popup {
     return inputValues;
   }
 
-  renderLoading(isLoading, loadingText='Saving...') {
+  renderLoading(isLoading) {
     if (isLoading) {
-      this._submitButton.textContent = loadingText;
+      this._submitButton.textContent = 'Saving...';
     } else {
       this._submitButton.textContent = this._submitButtonText;
     }
   }
-
+  
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._submitHandler(this._getInputValues());
-      //this.close();
     });
   }
 

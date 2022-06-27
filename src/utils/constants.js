@@ -39,13 +39,7 @@ export const settings = {
   errorClass: "popup__error_visible",
 };
 
-//submit buttons
-//export const editProfileSubmitButton = editProfileForm.querySelector(
-  //settings.submitButtonSelector)
-//export const addCardSubmitButton = addCardForm.querySelector(
-  //settings.submitButtonSelector)
-//export const avatarSubmitButton = addAvatarForm.querySelector(
-  //settings.submitButtonSelector)
+
 
 
 

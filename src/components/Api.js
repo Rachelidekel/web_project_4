@@ -1,19 +1,14 @@
-//import { customFetch } from "../utils/utils.js";
-
 class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
   }
+
   _customFetch = (url, headers) => {
-    fetch(url, headers)
+    return fetch(url, headers)
       .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
     }
- // _customFetch = (url, headers) => {
-  //fetch(url, headers)
-   // .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
-  //}
-
+ 
   getInitialCards() {
     return this._customFetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
