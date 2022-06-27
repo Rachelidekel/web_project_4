@@ -5,6 +5,7 @@ export class UserInfo {
   }) {
     this._profileName = document.querySelector(profileNameSelector);
     this._profileJob = document.querySelector(profileJobSelector);
+    //this._avatar = document.querySelector(".profile__image")
   }
 
   getUserInfo() {

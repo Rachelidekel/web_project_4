@@ -39,7 +39,7 @@ const userInfo = new UserInfo({
 
 //
 profileAvatar.alt = "user profile avatar";
-//profileAvatar.classList.add("profile__image");
+profileAvatar.classList.add("profile__image");
 
 Promise.all([api.getInitialCards(), api.getUserInfo()]).then(
   ([cardData, userData]) => {
@@ -56,10 +56,10 @@ Promise.all([api.getInitialCards(), api.getUserInfo()]).then(
       profileNameInput: userData.name,
       profileJobInput: userData.about,
     });
+
     profileAvatarContainer.prepend(profileAvatar);
-    console.log("avatar")
-    userInfo.setUserAvatar({profileAvatar: userData.avatar});
-    console.log("Hello")
+    userInfo.setUserAvatar({avatarImageInput: userData.avatar});
+   
   }
 );
 
@@ -144,10 +144,10 @@ const addAvatarModal = new PopupWithForm(
 );
 addAvatarModal.setEventListeners();
 
-function submitAddAvatarForm(avatar) {
+function submitAddAvatarForm(data) {
   improveUX(avatarSubmitButton, "Saving...");
-  api.setUserAvatar(avatar.link).then((avatar) => {
-    userInfo.setUserAvatar({profileAvatar: avatar.link});
+  api.setUserAvatar(data.link).then((data) => {
+    userInfo.setUserAvatar({profileAvatar: data.link});
     improveUX(avatarSubmitButton, "Save");
     //setUserAvatar(res);
     addAvatarModal.close();
