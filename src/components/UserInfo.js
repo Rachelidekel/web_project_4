@@ -1,11 +1,8 @@
 export class UserInfo {
-  constructor({
-    profileNameSelector,
-    profileJobSelector,
-  }) {
+  constructor({ profileNameSelector, profileJobSelector }) {
     this._profileName = document.querySelector(profileNameSelector);
     this._profileJob = document.querySelector(profileJobSelector);
-    //this._avatar = document.querySelector(".profile__image")
+    this._avatar = document.querySelector(".profile__image");
   }
 
   getUserInfo() {
@@ -20,8 +17,7 @@ export class UserInfo {
     this._profileJob.textContent = profileJobInput;
   }
 
-setUserAvatar( avatarImageInput, avatar) {
-  this._avatar =  avatarImageInput;
-  this._avatar.src = avatar;
-}
+  setUserAvatar({ avatarImageInput }) {
+    this._avatar.src = avatarImageInput;
+  }
 }

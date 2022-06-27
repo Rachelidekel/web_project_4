@@ -3,21 +3,20 @@ const editProfileModal = document.querySelector(".popup_type_edit");
 const addNewCardModal = document.querySelector(".popup_type_add-card");
 const addNewAvatarModal = document.querySelector(".popup_type_avatar")
 
+//
 export const templateCardSelector = ".element__template";
-export const list = document.querySelector(".elements__list");
 
 //forms
 export const editProfileForm = editProfileModal.querySelector(".popup__form");
 export const addCardForm = addNewCardModal.querySelector(".popup__form");
 export const addAvatarForm = addNewAvatarModal.querySelector(".popup__form");
 
-//export const addAvatarForm = document.querySelector(".popup__form_type_avatar");
-
+//inputs
 export const profileNameInput = document.querySelector(
   ".form__input_type_name"
 );
 export const profileJobInput = document.querySelector(".form__input_type_job");
-export const avatarImageInput = document.querySelector(".form__input_type_avatar-link")
+
 
 //open modal buttons
 export const editProfileButton = document.querySelector(
@@ -28,7 +27,7 @@ export const addAvatarButton = document.querySelector(".profile__avatar-overlay"
 
 export const profileAvatar = document.querySelector(".profile__image");
 export const profileAvatarContainer = document.querySelector(
-  ".profile__avatar-image"
+  ".profile__avatar"
 );
 
 //settings

@@ -10,7 +10,6 @@ import { api } from "../components/Api.js";
 import { improveUX } from "../utils/utils.js";
 import {
   templateCardSelector,
-  list,
   editProfileForm,
   addCardForm,
   addAvatarForm,
@@ -20,7 +19,6 @@ import {
   addCardButton,
   profileAvatar,
   profileAvatarContainer,
-  avatarImageInput,
   settings,
   addAvatarButton,
   editProfileSubmitButton,
@@ -58,8 +56,7 @@ Promise.all([api.getInitialCards(), api.getUserInfo()]).then(
     });
 
     profileAvatarContainer.prepend(profileAvatar);
-    userInfo.setUserAvatar({avatarImageInput: userData.avatar});
-   
+    userInfo.setUserAvatar({ avatarImageInput: userData.avatar });
   }
 );
 
@@ -147,9 +144,8 @@ addAvatarModal.setEventListeners();
 function submitAddAvatarForm(data) {
   improveUX(avatarSubmitButton, "Saving...");
   api.setUserAvatar(data.link).then((data) => {
-    userInfo.setUserAvatar({profileAvatar: data.link});
+    userInfo.setUserAvatar({ avatarImageInput: data.avatar });
     improveUX(avatarSubmitButton, "Save");
-    //setUserAvatar(res);
     addAvatarModal.close();
   });
 }
@@ -169,11 +165,6 @@ function fillProfileFormPreviousInput() {
   profileJobInput.value = job;
 }
 
-//function fillAvatarFormPreviousImage() {
-//const link = userInfo.getUserInfo();
-//profileImage.value = link;
-//}
-
 editProfileButton.addEventListener("click", () => {
   fillProfileFormPreviousInput();
   editFormValidator.resetValidation();
@@ -186,7 +177,6 @@ addCardButton.addEventListener("click", () => {
 });
 
 addAvatarButton.addEventListener("click", () => {
-  //fillAvatarFormPreviousImage();
   addAvatarFormValidator.resetValidation();
   addAvatarModal.open();
 });

@@ -1,8 +1,4 @@
-//import { customFetch } from "../utils/utils.js";
-const customFetch = (url, headers) =>
-  fetch(url, headers)
-    .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
-    .catch(console.log);
+import { customFetch } from "../utils/utils.js";
 
 class Api {
   constructor({ baseUrl, headers }) {
@@ -66,7 +62,7 @@ class Api {
     return customFetch(`${this._baseUrl}/users/me/avatar`, {
       headers: this._headers,
       method: "PATCH",
-      body: JSON.stringify({avatar}),
+      body: JSON.stringify({ avatar }),
     });
   }
 }
