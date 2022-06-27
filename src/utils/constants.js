@@ -40,12 +40,12 @@ export const settings = {
 };
 
 //submit buttons
-export const editProfileSubmitButton = editProfileForm.querySelector(
-  settings.submitButtonSelector)
-export const addCardSubmitButton = addCardForm.querySelector(
-  settings.submitButtonSelector)
-export const avatarSubmitButton = addAvatarForm.querySelector(
-  settings.submitButtonSelector)
+//export const editProfileSubmitButton = editProfileForm.querySelector(
+  //settings.submitButtonSelector)
+//export const addCardSubmitButton = addCardForm.querySelector(
+  //settings.submitButtonSelector)
+//export const avatarSubmitButton = addAvatarForm.querySelector(
+  //settings.submitButtonSelector)
 
 
 

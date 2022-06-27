@@ -7,7 +7,7 @@ import PopupWithSubmit from "../components/PopupWithSubmit.js";
 import { Section } from "../components/Section.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { api } from "../components/Api.js";
-import { improveUX } from "../utils/utils.js";
+//import { improveUX } from "../utils/utils.js";
 import {
   templateCardSelector,
   editProfileForm,
@@ -58,7 +58,7 @@ Promise.all([api.getInitialCards(), api.getUserInfo()]).then(
     profileAvatarContainer.prepend(profileAvatar);
     userInfo.setUserAvatar({ avatarImageInput: userData.avatar });
   }
-);
+).catch(console.log); 
 
 const previewImageModal = new PopupWithImage(".popup_type_image");
 previewImageModal.setEventListeners();
@@ -79,11 +79,11 @@ function createCard(data) {
         if (isAlreadyLiked) {
           api.dislikeCard(id).then((res) => {
             card.likeCard(res.likes);
-          });
+          }).catch(console.log); ;
         } else {
           api.likeCard(id).then((res) => {
             card.likeCard(res.likes);
-          });
+          }).catch(console.log); ;
         }
       },
       handleDeleteIcon: (id) => {
@@ -93,7 +93,7 @@ function createCard(data) {
           api.deleteCard(id).then((res) => {
             card.removeCard();
             confirmModal.close();
-          });
+          }).catch(console.log); ;
         });
       },
     },
@@ -108,15 +108,14 @@ const editModal = new PopupWithForm(".popup_type_edit", sumbitEditProfileForm);
 editModal.setEventListeners();
 
 function sumbitEditProfileForm(data) {
-  improveUX(editProfileSubmitButton, "Saving...");
+  //changeButtonText(editProfileSubmitButton, "Saving...");
   api.setUserInfo(data.name, data.job).then((data) => {
-    improveUX(editProfileSubmitButton, "Save");
+    //changeButtonText(editProfileSubmitButton, "Save");
     userInfo.setUserInfo({
       profileNameInput: data.name,
       profileJobInput: data.about,
-    });
-    editModal.close();
-  });
+    }); editModal.close();
+  }).catch(console.log).finally(() => renderLoading());  
 }
 
 const addCardModal = new PopupWithForm(
@@ -126,13 +125,13 @@ const addCardModal = new PopupWithForm(
 addCardModal.setEventListeners();
 
 function submitAddCardForm(data) {
-  improveUX(addCardSubmitButton, "Creating...");
+  //changeButtonText(addCardSubmitButton, "Creating...");
   api.createCard(data).then((res) => {
     createCard(res);
-    improveUX(addCardSubmitButton, "Create");
-    section.addItem(createCard(res));
+    //changeButtonText(addCardSubmitButton, "Create");
+    section.addItem(createCard(res))
     addCardModal.close();
-  });
+  }).catch(console.log).finally(() => renderLoading()) 
 }
 
 const addAvatarModal = new PopupWithForm(
@@ -142,12 +141,13 @@ const addAvatarModal = new PopupWithForm(
 addAvatarModal.setEventListeners();
 
 function submitAddAvatarForm(data) {
-  improveUX(avatarSubmitButton, "Saving...");
+  //changeButtonText(avatarSubmitButton, "Saving...");
   api.setUserAvatar(data.link).then((data) => {
     userInfo.setUserAvatar({ avatarImageInput: data.avatar });
-    improveUX(avatarSubmitButton, "Save");
+    //changeButtonText(avatarSubmitButton, "Save");
     addAvatarModal.close();
-  });
+  }).catch(console.log).finally(() => renderLoading()); 
+  
 }
 
 //

@@ -36,8 +36,8 @@ export class Card {
 
   likeCard(newLikes) {
     this._likes = newLikes;
-    this._listItem.querySelector(".element__likes-count").textContent =
-      this._likes.length;
+    //this._listItem.querySelector(".element__likes-count").textContent =
+      //this._likes.length;
 
     this._listItem
       .querySelector(".element__title-button")
@@ -64,6 +64,8 @@ export class Card {
   generateCard = () => {
     this._listItem = this._getTemplate();
     this._title = this._listItem.querySelector(".element__title-name");
+     this._listItem.querySelector(".element__likes-count").textContent =
+      this._likes.length;
     this._image = this._listItem.querySelector(".element__item");
     this._title.textContent = this._name;
     this._image.src = this._link;
@@ -75,8 +77,8 @@ export class Card {
       this._deleteButton.style.display = "none";
     }
 
-    this._listItem.querySelector(".element__likes-count").textContent =
-      this._likes.length;
+    //this._listItem.querySelector(".element__likes-count").textContent =
+      //this._likes.length;
 
     if (this.isLiked()) {
       this.likeCard(this._likes);
